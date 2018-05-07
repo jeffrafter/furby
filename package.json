@@ -1,0 +1,17 @@
+{
+  "name": "fluffd",
+  "version": "1.0.0",
+  "description": "Furby Connect BLE Controller",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js"
+  },
+  "dependencies": {
+    "noble": "https://github.com/jeffrafter/noble",
+    "menubar": "^5.2.3",
+    "winston": "^2.3.0"
+  },
+  "author": "Jeija + Jeff + Nathaniel + Tim",
+  "license": "MIT",
+  "devDependencies": {}
+}
