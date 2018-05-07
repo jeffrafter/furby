@@ -92,6 +92,7 @@ function parseCommand(name, req, res) {
 }
 
 http.createServer(function(req, res) {
+  console.log("Got request")
   let fragments = req.url.substring(1).split("/");
   let query = fragments.splice(0, 2);
   query.push(fragments.join('/'));
@@ -146,3 +147,7 @@ noble.on("discover", function(peripheral) {
     });
   }
 });
+
+module.exports = {
+  parseCommand: parseCommand
+}
