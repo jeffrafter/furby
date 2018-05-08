@@ -22,6 +22,10 @@ class Furbies {
     this.command('antenna', {red: 0, green: 0, blue: 255})
   }
 
+  ping() {
+    this.action([2, 0, 1, 4])
+  }
+
   action(values) {
     let params = {
       input: values[0],

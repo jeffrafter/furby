@@ -1,5 +1,6 @@
 const { app } = require('electron')
 const { ipcMain } = require('electron')
+const path = require('path')
 const menubar = require('menubar')
 const scanner = require('./scanner')
 const createServer = require('./server')

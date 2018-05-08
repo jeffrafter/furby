@@ -13,6 +13,11 @@ npm install
 npm start
 ```
 
+### That annoying warning
+
+```bash
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $(pwd)/node_modules/electron/dist/Electron.app
+```
 
 # Thanks
 
