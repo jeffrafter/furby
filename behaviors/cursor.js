@@ -16,6 +16,10 @@ class Cursor {
       global.furbies.action(actions["ear point up, Up"].params)
     } else if (newPos.row === oldPos.row + 1) {
       global.furbies.action(actions["down"].params)
+    } else if (newPos.column === oldPos.column - 1) {
+      global.furbies.action(actions["left"].params)
+    } else if (newPos.column === oldPos.column + 1) {
+      global.furbies.action(actions["right"].params)
     }
   }
 }
