@@ -1,11 +1,9 @@
-body {
-
-}
 
 .actions {
   padding-left: 10px;
 }
 
-.button{
-  
+.furby{
+  display: flex;
+  justify-content: space-between;
 }

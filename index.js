@@ -1,10 +1,11 @@
 const { app } = require('electron')
+const { ipcMain } = require('electron')
 const menubar = require('menubar')
 const scanner = require('./scanner')
-const server = require('./server')
-const notification = require('./notification')
+const createServer = require('./server')
+const Furbies = require('./furbies')
 
-const furbies = {}
+global.furbies = new Furbies()
 
 // https://github.com/maxogden/menubar#options
 const opts = {
@@ -19,14 +20,21 @@ app.on('window-all-closed', () => {
   app.quit()
 })
 
+ipcMain.on('pair', (event, uuid) => {
+  global.furbies.selected = uuid
+})
+
+ipcMain.on('unpair', (event, uuid) => {
+  global.furbies.selected = null
+})
+
 mb.on('ready', function ready () {
   console.log('Waiting for furbies to connect')
 
   scanner((peripheral, fluff) => {
-    furbies[peripheral.uuid] = fluff
+    global.furbies.add(peripheral.uuid, fluff)
+    mb.window.webContents.send('furby-connected', {fluff: fluff, uuid: peripheral.uuid});
   })
 
-  server((params) => {
-    notification(furbies, params)
-  })
+  createServer()
 })
