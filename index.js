@@ -1,22 +1,32 @@
 const { app } = require('electron')
-var menubar = require('menubar')
+const menubar = require('menubar')
+const scanner = require('./scanner')
+const server = require('./server')
+const notification = require('./notification')
 
-// Boot the webserver
-var fluffd = require("./fluffd.js")
+const furbies = {}
 
 // https://github.com/maxogden/menubar#options
 const opts = {
-  index: "file://" + __dirname +  "/index.html",
-  icon: "./IconTemplate@2x.png",
+  index: 'file://' + __dirname +  '/index.html',
+  icon: './IconTemplate@2x.png',
   preloadWindow: true
 }
 
 var mb = menubar(opts)
 
 app.on('window-all-closed', () => {
-  app.quit();
-});
+  app.quit()
+})
 
 mb.on('ready', function ready () {
-  console.log('app is ready')
+  console.log('Waiting for furbies to connect')
+
+  scanner((peripheral, fluff) => {
+    furbies[peripheral.uuid] = fluff
+  })
+
+  server((params) => {
+    notification(furbies, params)
+  })
 })
