@@ -8,6 +8,7 @@ class Furbies {
     this.lastCommandAt = null
     this.paused = false
     this.index = -1
+    this.actions = Object.entries(actions)
   }
 
   add(uuid, furby){
@@ -36,22 +37,21 @@ class Furbies {
 
   prev() {
     this.index -= 1
-    if (this.index < 0) this.index = actions.length - 1
-    this.play()
-    return actions[this.index][5]
+    if (this.index < 0) this.index = this.actions.length - 1
+    return this.play()
   }
 
   next() {
     this.index += 1
-    if (this.index > actions.length - 1) this.index = 0
-    this.play()
-
-    return actions[this.index][5]
+    if (this.index > this.actions.length - 1) this.index = 0
+    return this.play()
   }
 
   play() {
-    let a = actions[this.index]
-    this.action(a.slice(1, 5))
+    let a = this.actions[this.index][1]
+    console.log(a)
+    this.action(a.params)
+    return a.name
   }
 
   action(values) {
