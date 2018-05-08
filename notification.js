@@ -1,7 +1,35 @@
-const sample = (array) => {
-  let index = Math.floor(Math.random() * array.length)
-  return array[index]
+const sample = require('./util/sample')
+const linter = require('./behaviors/linter')
+
+module.exports = (notification) => {
+  let now = new Date()
+
+  console.log('*************************************')
+  console.log(notification)
+
+  if (notification.type === 'change') {
+    if (notification.change.match(/^var/)) {
+      global.furbies.action(sample([
+        [35, 0, 0, 0],
+        [39, 3, 4, 0]
+      ]))
+    }
+  }
+
+  if (notification.type === 'open') {
+    global.furbies.action(sample([
+      [42, 0, 4, 4],
+      [43, 0, 9, 2]
+    ]))
+  }
+
+  if (notification.type === 'linter') {
+    linter.update(notification.path, notification.added.length, notification.removed.length)
+  }
 }
+
+
+
 
 /*
   - Test failed
@@ -36,41 +64,3 @@ Commit
 Build passes
 
  */
-
-module.exports = (notification) => {
-  console.log('*************************************')
-  console.log(notification)
-
-  if (notification.type === 'change') {
-    if (notification.change.match(/^var/)) {
-      global.furbies.action(sample([
-        [35, 0, 0, 0],
-        [39, 3, 4, 0]
-      ]))
-    }
-  }
-
-  if (notification.type === 'open') {
-    global.furbies.action(sample([
-      [42, 0, 4, 4],
-      [43, 0, 9, 2]
-    ]))
-  }
-
-  if (notification.type === 'linter') {
-    if (notification.added.length > 0) {
-      // There is a problem
-      global.furbies.action(sample([
-        [8, 1, 0, 2],
-        [8, 1, 0, 3],
-        [8, 1, 0, 4]
-      ]))
-    } else if (notification.removed.length > 0) {
-      // You fixed it
-      global.furbies.action(sample([
-        [41, 0, 1, 0],
-        [42, 1, 0, 3]
-      ]))
-    }
-  }
-}

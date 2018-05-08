@@ -22,6 +22,10 @@ function ping() {
   remote.getGlobal('furbies').ping()
 }
 
+function toggle() {
+  remote.getGlobal('furbies').toggle()
+}
+
 function onPairClick(evt){
   uuid = this.parentNode.id
   ipcRenderer.send("pair", uuid)

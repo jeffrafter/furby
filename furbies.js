@@ -4,6 +4,8 @@ class Furbies {
   constructor(){
     this.connections = {}
     this.selected = null
+    this.lastCommandAt = null
+    this.paused = false
   }
 
   add(uuid, furby){
@@ -26,6 +28,10 @@ class Furbies {
     this.action([2, 0, 1, 4])
   }
 
+  toggle() {
+    this.paused = !this.paused
+  }
+
   action(values) {
     let params = {
       input: values[0],
@@ -38,6 +44,7 @@ class Furbies {
 
   command(name, params){
     console.log(`Sending ${name} to ${Object.keys(global.furbies.connections).length} furbies`)
+    if (this.paused) return
     for (let uuid in global.furbies.connections) {
       if (this.selected == null || this.selected == uuid) {
         fluffaction.execute(global.furbies.connections[uuid], name, params, (error) => {
