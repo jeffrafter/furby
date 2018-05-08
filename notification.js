@@ -3,6 +3,21 @@ const sample = (array) => {
   return array[index]
 }
 
+/*
+  - Test failed
+  - Test passed
+  - Started variable
+  - Started function
+  - Finished function
+  - In complex function
+  - In a method that doesn't have test coverage
+  - Added a linter error
+  - Fixed a linter error
+  - In duplicated code
+  - CI build status
+  - Naming conventions (NLP)
+  - JSHint (if Javascript)
+*/
 module.exports = (params) => {
   console.log('*************************************')
   console.log(params)
