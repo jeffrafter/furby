@@ -1,5 +1,7 @@
 const sample = require('./util/sample')
 const linter = require('./behaviors/linter')
+const cursor = require('./behaviors/cursor')
+const actions = require('./actions')
 
 let path = null
 
@@ -27,7 +29,10 @@ module.exports = (notification) => {
         [1, 2, 0, 6] // s s s s
       ]))
     }
+  }
 
+  if (notification.type === 'cursor') {
+    cursor.update(notification.path, notification.old, notification.new)
   }
 
   if (notification.type === 'open') {
