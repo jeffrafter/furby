@@ -1,4 +1,5 @@
 const sample = require('../util/sample')
+const actions = require('../actions')
 
 class Linter {
   constructor() {
@@ -24,7 +25,8 @@ class Linter {
   fixed() {
     global.furbies.action(sample([
       [41, 0, 1, 0],
-      [42, 1, 0, 3]
+      [42, 1, 0, 3],
+      actions["stars in eyes We did it!"].params
     ]))
   }
 
