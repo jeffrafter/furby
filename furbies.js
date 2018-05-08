@@ -1,3 +1,4 @@
+const sample = require('./util/sample')
 const fluffaction = require('./fluffaction')
 const actions = require('./actions')
 
@@ -49,9 +50,12 @@ class Furbies {
 
   play() {
     let a = this.actions[this.index][1]
-    console.log(a)
     this.action(a.params)
     return a.name
+  }
+
+  sampleAction(array) {
+    this.action(sample(array.map((e) => { return actions[e].params })))
   }
 
   action(values) {

@@ -36,10 +36,12 @@ module.exports = (notification) => {
   }
 
   if (notification.type === 'open') {
-    global.furbies.action(sample([
-      [42, 0, 4, 4],
-      [43, 0, 9, 2]
-    ]))
+    global.furbies.sampleAction([
+      "oooh",
+      "Hey, Hey",
+      "Let's get party started, uh",
+      "cmon, let's get started"
+    ])
   }
 
   if (notification.type === 'linter') {
