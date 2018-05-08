@@ -1,19 +1,33 @@
 const sample = require('./util/sample')
 const linter = require('./behaviors/linter')
 
+let path = null
+
 module.exports = (notification) => {
   let now = new Date()
 
   console.log('*************************************')
   console.log(notification)
 
+  if (notification.type === 'active') {
+    path = notification.path
+  }
+
   if (notification.type === 'change') {
+    path = notification.path
     if (notification.change.match(/^var/)) {
       global.furbies.action(sample([
         [35, 0, 0, 0],
         [39, 3, 4, 0]
       ]))
     }
+
+    if (notification.change.match(/^\s*s+\s*/)) {
+      global.furbies.action(sample([
+        [1, 2, 0, 6] // s s s s
+      ]))
+    }
+
   }
 
   if (notification.type === 'open') {
@@ -24,9 +38,12 @@ module.exports = (notification) => {
   }
 
   if (notification.type === 'linter') {
-    linter.update(notification.path, notification.added.length, notification.removed.length)
+    linter.update(path, notification.added.length, notification.removed.length)
   }
 }
+
+
+
 
 
 

@@ -1,4 +1,5 @@
 const fluffaction = require('./fluffaction')
+const actions = require('./actions')
 
 class Furbies {
   constructor(){
@@ -6,6 +7,7 @@ class Furbies {
     this.selected = null
     this.lastCommandAt = null
     this.paused = false
+    this.index = -1
   }
 
   add(uuid, furby){
@@ -32,7 +34,28 @@ class Furbies {
     this.paused = !this.paused
   }
 
+  prev() {
+    this.index -= 1
+    if (this.index < 0) this.index = actions.length - 1
+    this.play()
+    return actions[this.index][5]
+  }
+
+  next() {
+    this.index += 1
+    if (this.index > actions.length - 1) this.index = 0
+    this.play()
+
+    return actions[this.index][5]
+  }
+
+  play() {
+    let a = actions[this.index]
+    this.action(a.slice(1, 5))
+  }
+
   action(values) {
+    console.log(values)
     let params = {
       input: values[0],
       index: values[1],

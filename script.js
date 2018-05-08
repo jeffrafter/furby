@@ -26,6 +26,22 @@ function toggle() {
   remote.getGlobal('furbies').toggle()
 }
 
+function prev() {
+  var action = remote.getGlobal('furbies').prev()
+  var el = document.getElementById("action")
+  el.innerHTML = action
+}
+
+function next() {
+  var action = remote.getGlobal('furbies').next()
+  var el = document.getElementById("action")
+  el.innerHTML = action
+}
+
+function play() {
+  remote.getGlobal('furbies').play()
+}
+
 function onPairClick(evt){
   uuid = this.parentNode.id
   ipcRenderer.send("pair", uuid)
