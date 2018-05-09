@@ -64,7 +64,18 @@ class Furbies {
 
   // Sample from all actions in an emotional category. Plays the action.
   sampleEmotion(emotion) {
-    this.action(sample(emotions[emotion]))
+    let potentialActions = []
+    if(emotion.constructor === Array) {
+      emotion.forEach(e => {
+        emotions[e].forEach(a => {
+          potentialActions.push(a)
+        })
+      })
+    } else {
+      potentialActions = emotions[emotion]
+    }
+
+    this.action(sample(potentialActions))
   }
 
   // Sample from a list of actions. Plays the action.
