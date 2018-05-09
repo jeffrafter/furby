@@ -2,15 +2,14 @@ const sample = require('./util/sample')
 const linter = require('./behaviors/linter')
 const cursor = require('./behaviors/cursor')
 
+const startingBoredThreshold = 2*60*1000 // 2 minutes
+
 let path = null
 let lastNotification = new Date()
-let boredThreshold = 30*1000 // 30 seconds
+let boredThreshold = startingBoredThreshold
 
 module.exports = (notification) => {
   let now = new Date()
-
-  console.log('*************************************')
-  console.log(notification)
 
   if (notification.type === 'tick') {
     if (now - lastNotification > boredThreshold) {
@@ -19,7 +18,12 @@ module.exports = (notification) => {
       global.furbies.sampleEmotion('sleepy')
     }
   } else {
+    console.log('*************************************')
+    console.log(notification)
     lastNotification = now
+    boredThreshold = startingBoredThreshold
+  }
+
   }
 
   if (notification.type === 'active') {

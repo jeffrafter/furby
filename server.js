@@ -7,10 +7,10 @@ const PORT = 3872
 
 module.exports = () => {
 
-  // Heartbeat every 10 seconds
+  // Heartbeat every 30 seconds
   timers.setInterval(() => {
     notification({ type: 'tick' })
-  }, 5*1000)
+  }, 30*1000)
 
   http.createServer((req, res) => {
     let fragments = req.url.substring(1).split('/')
