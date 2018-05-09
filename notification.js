@@ -23,7 +23,7 @@ module.exports = (notification) => {
         "ooh, name for kah? (sing) Oooh"
       ])
     }
-    if (notification.lineText.match(/^\s*(function|\(\))\s+$/)) {
+    if (notification.lineText.match(/(^\s*function|\(\))$/)) {
       global.furbies.sampleEmotion(['collab', 'smalltalk'])
     }
 
