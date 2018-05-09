@@ -27,7 +27,7 @@ class Linter {
   }
 
   problem() {
-    global.furbies.sampleEmotion("disapointment")
+    global.furbies.sampleEmotion("disappointment")
   }
 }
 
