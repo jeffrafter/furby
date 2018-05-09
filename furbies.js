@@ -29,6 +29,10 @@ class Furbies {
     this.command('antenna', {red: 255, green: 0, blue: 0})
   }
 
+  orange() {
+    this.command('antenna', {red: 255, green: 165, blue: 0})
+  }
+
   green() {
     this.command('antenna', {red: 0, green: 255, blue: 0})
   }
@@ -39,6 +43,23 @@ class Furbies {
 
   ping() {
     this.action(actions["giggle, fart oh, excueeze kah!"])
+  }
+
+  ciStatus(project) {
+    let cmd = ['hub', `--git-dir=${project}/.git`, 'ci-status'].join(' ')
+    console.log(cmd)
+    exec(cmd, (err, stdout, stderr) => {
+      console.log(stdout)
+      if (stdout === 'success') {
+        this.green()
+      } else if (stdout === 'failure') {
+        this.red()
+      } else if (stdout === 'pending') {
+        this.orange()
+      } else {
+        this.blue()
+      }
+    })
   }
 
   toggle() {

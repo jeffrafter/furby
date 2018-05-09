@@ -4,6 +4,7 @@ const cursor = require('./behaviors/cursor')
 
 const startingBoredThreshold = 2*60*1000 // 2 minutes
 
+let projectPath = null
 let path = null
 let lastNotification = new Date()
 let boredThreshold = startingBoredThreshold
@@ -17,6 +18,9 @@ module.exports = (notification) => {
       console.log(`Next bored action in ${boredThreshold/1000}s`)
       global.furbies.sampleEmotion('sleepy')
     }
+    if (projectPath) {
+      global.furbies.ciStatus(projectPath)
+    }
   } else {
     console.log('*************************************')
     console.log(notification)
@@ -24,6 +28,8 @@ module.exports = (notification) => {
     boredThreshold = startingBoredThreshold
   }
 
+  if (notification.projectPath) {
+    projectPath = notification.projectPath
   }
 
   if (notification.type === 'active') {
