@@ -2,6 +2,7 @@ const sample = require('./util/sample')
 const fluffaction = require('./fluffaction')
 const actions = require('./actions')
 const actionValues = Object.values(actions)
+const { exec } = require('child_process');
 
 emotions = {}
 actionValues.forEach(a => {
@@ -97,6 +98,13 @@ class Furbies {
       specific: action.params[3]
     }
     this.command('action', params)
+
+    if (Object.keys(global.furbies.connections).length === 0) {
+      exec(`say "${action.name}"`, (err, stdout, stderr) => {
+        console.log(stdout)
+        console.log(stderr)
+      })
+    }
   }
 
   command(name, params){
