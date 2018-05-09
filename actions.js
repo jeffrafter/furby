@@ -161,7 +161,7 @@ module.exports = {
 "ahhh, what's wrong": { params: [43, 0, 2, 1], name: "ahhh, what's wrong", emotions:"questioning,concern" },
 "oo-nye ok?": { params: [43, 0, 2, 2], name: "oo-nye ok?", emotions:"questioning,concern" },
 "let kah help": { params: [43, 0, 4, 0], name: "let kah help", emotions:"helpful,collab" },
-"hey! stop it": { params: [43, 0, 5, 0], name: "hey! stop it", emotions:"frustrated,disappointment" },
+"hey! stop it": { params: [43, 0, 5, 0], name: "hey! stop it", emotions:"frustrated" },
 "what going on little dee-doh?": { params: [43, 0, 6, 0], name: "what going on little dee-doh?", emotions:"questioning" },
 "so what oo-nye need?": { params: [43, 0, 6, 1], name: "so what oo-nye need?", emotions:"questioning,collab" },
 "ahh, hold that thought": { params: [43, 0, 7, 1], name: "ahh, hold that thought", emotions: "collab" },
@@ -199,5 +199,5 @@ module.exports = {
 "Sol": { params: [71, 0, 0, 4], name: "Sol" },
 "La": { params: [71, 0, 0, 5], name: "La" },
 "Ti": { params: [71, 0, 0, 6], name: "Ti" },
-"Do": { params: [71, 0, 0, 7], name: "Do" }
+"Do2": { params: [71, 0, 0, 7], name: "Do" }
 }
