@@ -16,7 +16,7 @@ module.exports = {
 "do do, de de dey da do, da do": { params: [1, 2, 0, 7], name: "do do, de de dey da do, da do", emotions: "sleepy,singing" },
 "aaah, kah on cloud nine, no, cloud ten": { params: [1, 2, 1, 0], name: "aaah, kah on cloud nine, no, cloud ten", emotions: "sleepy,content" },
 "purr hmm. Kah dreaming?": { params: [1, 2, 1, 1], name: "purr hmm. Kah dreaming?", emotions: "sleepy,content,purr" },
-"I love it!": { params: [1, 2, 1, 2], name: "I love it!", emotions: "praise,sleepy" },
+"I love it!": { params: [1, 2, 1, 2], name: "I love it!", emotions: "praise" },
 "aaah fart": { params: [1, 2, 1, 4], name: "aaah fart", emotions: "sigh,fart" },
 "sigh": { params: [1, 2, 1, 5], name: "sigh", emotions: "sigh,disappointment" },
 "oouuughhh": { params: [1, 3, 0, 1], name: "oouuughhh", emotions: "purr" },
