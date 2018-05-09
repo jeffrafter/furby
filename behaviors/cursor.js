@@ -1,5 +1,4 @@
 const sample = require('../util/sample')
-const actions = require('../actions')
 
 class Cursor {
   constructor() {
@@ -13,13 +12,13 @@ class Cursor {
     if (d < 0.9) return
 
     if (newPos.row === oldPos.row - 1) {
-      global.furbies.action(actions["ear point up, Up"].params)
+      global.furbies.playAction("ear point up, Up")
     } else if (newPos.row === oldPos.row + 1) {
-      global.furbies.action(actions["down"].params)
+      global.furbies.playAction("down")
     } else if (newPos.column === oldPos.column - 1) {
-      global.furbies.action(actions["left"].params)
+      global.furbies.playAction("left")
     } else if (newPos.column === oldPos.column + 1) {
-      global.furbies.action(actions["right"].params)
+      global.furbies.playAction("right")
     }
   }
 }

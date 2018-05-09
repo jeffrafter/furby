@@ -23,19 +23,11 @@ class Linter {
   }
 
   fixed() {
-    global.furbies.action(sample([
-      [41, 0, 1, 0],
-      [42, 1, 0, 3],
-      actions["stars in eyes We did it!"].params
-    ]))
+    global.furbies.sampleEmotion("praise")
   }
 
   problem() {
-    global.furbies.action(sample([
-      [8, 1, 0, 2],
-      [8, 1, 0, 3],
-      [8, 1, 0, 4]
-    ]))
+    global.furbies.sampleEmotion("disapointment")
   }
 }
 

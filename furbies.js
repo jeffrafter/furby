@@ -37,7 +37,7 @@ class Furbies {
   }
 
   ping() {
-    this.action([2, 0, 1, 4])
+    this.action(actions["giggle, fart oh, excueeze kah!"])
   }
 
   toggle() {
@@ -58,31 +58,32 @@ class Furbies {
 
   play() {
     let a = actionValues[this.index]
-    this.action(a.params)
+    this.action(a)
     return a.name
   }
 
   // Sample from all actions in an emotional category. Plays the action.
   sampleEmotion(emotion) {
-    this.action(sample(
-      emotions[emotion].map(e => e.params)
-    ))
+    this.action(sample(emotions[emotion]))
   }
 
   // Sample from a list of actions. Plays the action.
   sampleAction(array) {
-    this.action(sample(
-      array.map(e => actions[e].params)
-    ))
+    this.action(sample(array.map(e => actions[e])))
   }
 
-  action(values) {
-    console.log(values)
+  // Play an action by name
+  playAction(name) {
+    this.action(actions[name])
+  }
+
+  action(action) {
+    console.log(action)
     let params = {
-      input: values[0],
-      index: values[1],
-      subindex: values[2],
-      specific: values[3]
+      input: action.params[0],
+      index: action.params[1],
+      subindex: action.params[2],
+      specific: action.params[3]
     }
     this.command('action', params)
   }
