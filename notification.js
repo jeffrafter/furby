@@ -3,12 +3,24 @@ const linter = require('./behaviors/linter')
 const cursor = require('./behaviors/cursor')
 
 let path = null
+let lastNotification = new Date()
+let boredThreshold = 30*1000 // 30 seconds
 
 module.exports = (notification) => {
   let now = new Date()
 
   console.log('*************************************')
   console.log(notification)
+
+  if (notification.type === 'tick') {
+    if (now - lastNotification > boredThreshold) {
+      boredThreshold = boredThreshold*2
+      console.log(`Next bored action in ${boredThreshold/1000}s`)
+      global.furbies.sampleEmotion('sleepy')
+    }
+  } else {
+    lastNotification = now
+  }
 
   if (notification.type === 'active') {
     path = notification.path

@@ -1,10 +1,17 @@
 const http = require('http')
+const timers = require('timers')
 const fluffaction = require('./fluffaction')
 const notification = require('./notification')
 
 const PORT = 3872
 
 module.exports = () => {
+
+  // Heartbeat every 10 seconds
+  timers.setInterval(() => {
+    notification({ type: 'tick' })
+  }, 5*1000)
+
   http.createServer((req, res) => {
     let fragments = req.url.substring(1).split('/')
     let query = fragments.splice(0, 2)
