@@ -62,12 +62,14 @@ class Furbies {
     return a.name
   }
 
+  // Sample from all actions in an emotional category. Plays the action.
   sampleEmotion(emotion) {
     this.action(sample(
       emotions[emotion].map(e => e.params)
     ))
   }
 
+  // Sample from a list of actions. Plays the action.
   sampleAction(array) {
     this.action(sample(
       array.map(e => actions[e].params)
