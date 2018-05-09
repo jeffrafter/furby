@@ -4,7 +4,7 @@ const actions = require('./actions')
 const actionValues = Object.values(actions)
 const { exec } = require('child_process');
 
-emotions = {}
+const emotions = {}
 actionValues.forEach(a => {
   (a.emotions || "").split(',').forEach(e => {
     emotions[e] = emotions[e] || []
@@ -108,8 +108,10 @@ class Furbies {
   }
 
   command(name, params){
+    this.lastCommandAt = new Date()
     console.log(`Sending ${name} to ${Object.keys(global.furbies.connections).length} furbies`)
     if (this.paused) return
+
     for (let uuid in global.furbies.connections) {
       if (this.selected == null || this.selected == uuid) {
         fluffaction.execute(global.furbies.connections[uuid], name, params, (error) => {
