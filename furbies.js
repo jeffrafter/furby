@@ -50,14 +50,12 @@ class Furbies {
     console.log(cmd)
     exec(cmd, (err, stdout, stderr) => {
       console.log(stdout)
-      if (stdout === 'success') {
+      if (stdout.match(/success/)) {
         this.green()
-      } else if (stdout === 'failure') {
+      } else if (stdout.match(/failure/)) {
         this.red()
-      } else if (stdout === 'pending') {
+      } else if (stdout.match(/pending/)) {
         this.orange()
-      } else {
-        this.blue()
       }
     })
   }
