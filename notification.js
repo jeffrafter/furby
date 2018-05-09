@@ -16,10 +16,11 @@ module.exports = (notification) => {
 
   if (notification.type === 'change') {
     path = notification.path
-    if (notification.change.match(/^var/)) {
+    if (notification.change.match(/^\s*var/)) {
       global.furbies.sampleAction([
         "oooh, pick a good one!",
-        "let's name baby"
+        "let's name baby",
+        "ooh, name for kah? (sing) Oooh"
       ])
     }
 
@@ -35,12 +36,7 @@ module.exports = (notification) => {
   }
 
   if (notification.type === 'open') {
-    global.furbies.sampleAction([
-      "oooh",
-      "Hey, Hey",
-      "Let's get party started, uh",
-      "cmon, let's get started"
-    ])
+    global.furbies.sampleEmotion('beginning')
   }
 
   if (notification.type === 'destroy') {
