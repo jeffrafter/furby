@@ -23,8 +23,8 @@ module.exports = (notification) => {
         "ooh, name for kah? (sing) Oooh"
       ])
     }
-    if (notification.change.match(/^\s*function/)) {
-      global.furbies.sampleEmotion("collab")
+    if (notification.change.match(/^\s*(function|\(\))/)) {
+      global.furbies.sampleEmotion(['collab', 'smalltalk'])
     }
 
     if (notification.change.match(/^\s*s+\s*/)) {
