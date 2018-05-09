@@ -8,8 +8,8 @@ class Cursor {
   update(path, oldPos, newPos) {
     let d = Math.random()
 
-    // Only act 10% of the time
-    if (d < 0.9) return
+    // Only act 3% of the time
+    if (d < 0.97) return
 
     if (newPos.row === oldPos.row - 1) {
       global.furbies.playAction("ear point up, Up")
