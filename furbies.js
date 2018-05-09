@@ -1,6 +1,15 @@
 const sample = require('./util/sample')
 const fluffaction = require('./fluffaction')
 const actions = require('./actions')
+const actionValues = Object.values(actions)
+
+emotions = {}
+actionValues.forEach(a => {
+  (a.emotions || "").split(',').forEach(e => {
+    emotions[e] = emotions[e] || []
+    emotions[e].push(a)
+  })
+})
 
 class Furbies {
   constructor(){
@@ -9,7 +18,6 @@ class Furbies {
     this.lastCommandAt = null
     this.paused = false
     this.index = -1
-    this.actions = Object.entries(actions)
   }
 
   add(uuid, furby){
@@ -38,24 +46,32 @@ class Furbies {
 
   prev() {
     this.index -= 1
-    if (this.index < 0) this.index = this.actions.length - 1
+    if (this.index < 0) this.index = actionValues.length - 1
     return this.play()
   }
 
   next() {
     this.index += 1
-    if (this.index > this.actions.length - 1) this.index = 0
+    if (this.index > actionValues.length - 1) this.index = 0
     return this.play()
   }
 
   play() {
-    let a = this.actions[this.index][1]
+    let a = actionValues[this.index]
     this.action(a.params)
     return a.name
   }
 
+  sampleEmotion(emotion) {
+    this.action(sample(
+      emotions[emotion].map(e => e.params)
+    ))
+  }
+
   sampleAction(array) {
-    this.action(sample(array.map((e) => { return actions[e].params })))
+    this.action(sample(
+      array.map(e => actions[e].params)
+    ))
   }
 
   action(values) {
