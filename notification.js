@@ -1,7 +1,6 @@
 const sample = require('./util/sample')
 const linter = require('./behaviors/linter')
 const cursor = require('./behaviors/cursor')
-const actions = require('./actions')
 
 let path = null
 
