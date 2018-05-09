@@ -16,14 +16,14 @@ module.exports = (notification) => {
 
   if (notification.type === 'change') {
     path = notification.path
-    if (notification.change.match(/^\s*(var|let|const)/)) {
+    if (notification.lineText.match(/^\s*(var|let|const)\s+$/)) {
       global.furbies.sampleAction([
         "oooh, pick a good one!",
         "let's name baby",
         "ooh, name for kah? (sing) Oooh"
       ])
     }
-    if (notification.change.match(/^\s*(function|\(\))/)) {
+    if (notification.lineText.match(/^\s*(function|\(\))\s+$/)) {
       global.furbies.sampleEmotion(['collab', 'smalltalk'])
     }
 
@@ -32,7 +32,6 @@ module.exports = (notification) => {
         "mmm… s s s s"
       ])
     }
-
   }
 
   if (notification.type === 'cursor') {
