@@ -1,6 +1,7 @@
 const sample = require('./util/sample')
 const linter = require('./behaviors/linter')
 const cursor = require('./behaviors/cursor')
+const active = require('./behaviors/active')
 
 const startingBoredThreshold = 2*60*1000 // 2 minutes
 
@@ -34,6 +35,7 @@ module.exports = (notification) => {
 
   if (notification.type === 'active') {
     path = notification.path
+    active.update(notification.path)
   }
 
   if (notification.type === 'change') {
