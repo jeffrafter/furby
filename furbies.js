@@ -19,6 +19,7 @@ class Furbies {
     this.lastCommandAt = null
     this.paused = false
     this.index = -1
+    this.cycle = {}
   }
 
   add(uuid, furby){
@@ -96,6 +97,18 @@ class Furbies {
     }
 
     this.action(sample(potentialActions))
+  }
+
+  cycleEmotion(emotion) {
+    let i = this.cycle[emotion] || 0
+
+    this.action(emotions[emotion][i])
+
+    i +=1
+    if (i > emotions[emotion].length - 1) {
+      i = 0
+    }
+    this.cycle[emotion] = i
   }
 
   // Sample from a list of actions. Plays the action.

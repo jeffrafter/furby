@@ -67,7 +67,7 @@ module.exports = (notification) => {
   }
 
   if (notification.type === 'destroy') {
-    global.furbies.sampleEmotion('goodbye')
+    global.furbies.cycleEmotion('goodbye')
   }
 
   if (notification.type === 'linter') {
