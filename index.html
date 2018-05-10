@@ -4,7 +4,6 @@
   <head>
   <body>
     <script src="script.js"></script>
-    <h2>Welcome to furby</h2>
     <h4>Furbies</h4>
     <div id="furbies">
     </div>
@@ -14,11 +13,26 @@
     <button onclick="ping()">Ping</button>
     <button onclick="toggle()">Toggle</button>
     <br>
-    <br>
+    <h4>Built-in actions</h4>
     <button onclick="prev()">Prev</button>
     <button onclick="play()">Play</button>
     <button onclick="next()">Next</button>
     <br>
     <span id="action">Nothin selected</span>
+    <br>
+    <h4>Custom actions</h4>
+    <input id="action1" value="75" style="width:25px;">
+    <input id="action2" value="0" style="width:25px;">
+    <input id="action3" value="3" style="width:25px;">
+    <input id="action4" value="4" style="width:25px;">
+    <button onclick="test()">Test</button>
+    <br>
+    <h4>Downloadable Content</h4>
+    <button onclick="debug()">Debug</button>
+    <button onclick="deleteDlc()">Delete</button>
+    <button onclick="flashDlc()">Flash</button>
+    <button onclick="loadDlc()">Load</button>
+    <button onclick="toggleDlc()">Toggle</button>
+    <br>
   </body>
 </html>

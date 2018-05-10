@@ -20,6 +20,7 @@ class Furbies {
     this.paused = false
     this.index = -1
     this.cycle = {}
+    this.dlcActive = false
   }
 
   add(uuid, furby){
@@ -81,6 +82,83 @@ class Furbies {
     let a = actionValues[this.index]
     this.action(a)
     return a.name
+  }
+
+  test(v1, v2, v3, v4) {
+    let params = {
+      input: v1,
+      index: v2,
+      subindex: v3,
+      specific: v4
+    }
+    this.command('action', params)
+  }
+
+  debug() {
+    for (let uuid in global.furbies.connections) {
+      if (this.selected == null || this.selected == uuid) {
+        fluffaction.execute(global.furbies.connections[uuid], "debug", {}, (error) => {
+          if (error) {
+            console.log(`[Error] ${error}`)
+          }
+        })
+      }
+    }
+  }
+
+  deleteDlc() {
+    for (let uuid in global.furbies.connections) {
+      if (this.selected == null || this.selected == uuid) {
+        fluffaction.execute(global.furbies.connections[uuid], "dlc_delete", {slot: 13}, (error) => {
+          if (error) {
+            console.log(`[Error] ${error}`)
+          }
+        })
+      }
+    }
+  }
+
+  flashDlc() {
+    for (let uuid in global.furbies.connections) {
+      if (this.selected == null || this.selected == uuid) {
+        fluffaction.execute(global.furbies.connections[uuid], "flashdlc", {
+          dlcfile: process.env.DLC_FILE,
+          filename: "NEWDLC.DLC"
+        }, (error) => {
+          if (error) {
+            console.log(`[Error] ${error}`)
+          }
+        })
+      }
+    }
+  }
+
+  loadDlc() {
+    for (let uuid in global.furbies.connections) {
+      if (this.selected == null || this.selected == uuid) {
+        fluffaction.execute(global.furbies.connections[uuid], "dlc_load", {slot: 13}, (error) => {
+          if (error) {
+            console.log(`[Error] ${error}`)
+            return
+          }
+        })
+      }
+    }
+  }
+
+  toggleDlc() {
+    this.dlcActive = !this.dlcActive
+    let command = this.dlcActive ? "dlc_activate" : "dlc_deactivate"
+    for (let uuid in global.furbies.connections) {
+      if (this.selected == null || this.selected == uuid) {
+        fluffaction.execute(global.furbies.connections[uuid], command, {}, (error) => {
+          if (error) {
+            console.log(`[Error] ${error}`)
+            return
+          }
+        })
+      }
+    }
   }
 
   // Sample from all actions in an emotional category. Plays the action.

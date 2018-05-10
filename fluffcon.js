@@ -1,4 +1,3 @@
-const winston = require("winston");
 const noble = require("noble");
 
 /*
@@ -25,12 +24,12 @@ const FURBY = {
 // Otherwise, Furby will remain in a state where it doesn't accept any connection attempts.
 function exitHandler(furby) {
   process.on("SIGINT", function() {
-    winston.log("info", "\nClosing connection...");
+    console.log("[Furby] Closing connection...");
     furby.disconnect(function(error) {
       if (error)
-        winston.log("error", "Error while disconnecting: " + error);
+        console.log("[Furby] Error while disconnecting: " + error);
       else
-        winston.log("info", "Disconnected, exiting.");
+        console.log("[Furby] Disconnected, exiting.");
 
       // TODO: This does not work with multiple furbies connect
       process.exit();
@@ -43,13 +42,13 @@ function exitHandler(furby) {
 function getFurbyCharacteristics(furby, serviceUUID, characteristicUUIDs, callback) {
   furby.discoverServices([serviceUUID], function(error, services) {
     if (error) {
-      winston.log("error", "Error in discoverServices: " + error);
+      console.log("[Furby] Error in discoverServices: " + error);
       return;
     }
 
     services[0].discoverCharacteristics(characteristicUUIDs, function(error, characteristics) {
       if (error) {
-        winston.log("error", "Error in discoverCharacteristics: " + error);
+        console.log("[Furby] Error in discoverCharacteristics: " + error);
         return;
       }
 
@@ -93,10 +92,10 @@ class Fluff {
   generalPlusWrite(data, callback) {
     this.gpWrite.write(data, true, function(error) {
       if (error) {
-        winston.log("warn", "Error in generalPlusWrite: " + error);
+        console.log("[Furby] Error in generalPlusWrite: " + error);
         if (callback) callback("generalPlusWrite: " + error);
       } else {
-        winston.log("verbose", "generalPlusWrite: " + data.toString("hex"));
+        console.log("[Furby] generalPlusWrite: " + data.toString("hex"));
         if (callback) callback(false);
       }
     });
@@ -110,7 +109,7 @@ class Fluff {
       if (i < sequence.length) {
         this.gpWrite.write(sequence[i], true, function(error) {
           if (error) {
-            winston.log("warn", "Error in generalPlusWriteSequence: " + error);
+            console.log("[Furby] Error in generalPlusWriteSequence: " + error);
             if (callback) callback("generalPlusWriteSequence: " + error);
             return;
           }
@@ -130,10 +129,10 @@ class Fluff {
   nordicWrite(data, callback) {
     this.nWrite.write(data, true, function(error) {
       if (error) {
-        winston.log("warn", "Error in nordicWrite: " + error);
+        console.log("[Furby] Error in nordicWrite: " + error);
         if (callback) callback("nordicWrite: " + error);
       } else {
-        winston.log("verbose", "nordicWrite: " + data.toString("hex"));
+        console.log("[Furby] nordicWrite: " + data.toString("hex"));
         if (callback) callback(false);
       }
     });
@@ -143,10 +142,10 @@ class Fluff {
   writeToSlot(data, callback) {
     this.fileWrite.write(data, true, function(error) {
       if (error) {
-        winston.log("warn", "Error in writeToSlot: " + error);
+        console.log("[Furby] Error in writeToSlot: " + error);
         if (callback) callback("writeToSlot: " + error);
       } else {
-        winston.log("verbose", "writeToSlot: " + data.toString("hex"));
+        console.log("[Furby] writeToSlot: " + data.toString("hex"));
         if (callback) callback(false);
       }
     });
@@ -155,34 +154,34 @@ class Fluff {
   // Subscribe to GeneralPlusListen, RSSIListen and NordicListen characteristics
   subscribeNotifications() {
     this.nListen.on("data", (data, isNotification) => {
-      winston.log("verbose", "Nordic notification: " + data.toString("hex"));
+      console.log("[Furby] Nordic notification: " + data.toString("hex"));
       for (let c of this.nCallbacks)
         c(data);
     });
 
     this.gpListen.on("data", (data, isNotification) => {
-      winston.log("verbose", "GP notification: " + data.toString("hex"));
+      console.log("[Furby] GP notification: " + data.toString("hex"));
       for (let c of this.gpCallbacks)
         c(data);
     });
 
     this.rssiListen.on("data", (data, isNotification) => {
-      winston.log("verbose", "RSSI notification: " + data.toString("hex"));
+      console.log("[Furby] RSSI notification: " + data.toString("hex"));
     });
 
     this.nListen.subscribe((error) => {
       if (error)
-        winston.log("error", "Error while subscribing to NordicListen: " + error);
+        console.log("[Furby] Error while subscribing to NordicListen: " + error);
     });
 
     this.gpListen.subscribe((error) => {
       if (error)
-        winston.log("error", "Error while subscribing to GeneralPlusListen: " + error);
+        console.log("[Furby] Error while subscribing to GeneralPlusListen: " + error);
     });
 
     this.rssiListen.subscribe((error) => {
       if (error)
-        winston.log("error", "Error while subscribing to RSSIListen: " + error);
+        console.log("[Furby] Error while subscribing to RSSIListen: " + error);
     });
   }
 
@@ -225,7 +224,7 @@ module.exports = {}
 module.exports.connect = function(furby, callback) {
   furby.connect(function(error) {
     if (error) {
-      winston.log("error", "Error while connecting: " + error);
+      console.log("[Furby] Error while connecting: " + error);
       return;
     }
 
@@ -239,11 +238,11 @@ module.exports.connect = function(furby, callback) {
       let nListen = characteristics[FURBY.CHARACTERISTIC.NORDIC_LISTEN];
       let rssiListen = characteristics[FURBY.CHARACTERISTIC.RSSI_LISTEN];
       let fileWrite = characteristics[FURBY.CHARACTERISTIC.FILEWRITE];
-      winston.log("debug", "Read all fluff characteristics");
+      console.log("[Furby] Read all fluff characteristics");
       callback(new Fluff(gpWrite, gpListen, nWrite, nListen, rssiListen, fileWrite));
     });
 
-    winston.log("info", "Connected to Furby");
+    console.log("[Furby] Connected to Furby");
   });
 };
 
@@ -252,7 +251,7 @@ module.exports.introspect = function(furby) {
 
   furby.connect(function(error) {
     if (error) {
-      winston.log("error", "Error while connecting for introspection: " + error);
+      console.log("[Furby] Error while connecting for introspection: " + error);
       return;
     }
 
@@ -273,9 +272,9 @@ module.exports.introspect = function(furby) {
           if (count >= services.length) {
             furby.disconnect(function(error) {
               if (error)
-                winston.log("error", "Error while disconnecting: " + error);
+                console.log("[Furby] Error while disconnecting: " + error);
               else
-                winston.log("info", "Disconnected, exiting")
+                console.log("[Furby] Disconnected, exiting")
 
               process.exit();
             });

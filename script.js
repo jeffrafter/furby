@@ -42,6 +42,35 @@ function play() {
   remote.getGlobal('furbies').play()
 }
 
+function debug() {
+  remote.getGlobal('furbies').debug()
+}
+
+function deleteDlc() {
+  remote.getGlobal('furbies').deleteDlc()
+}
+
+function flashDlc() {
+  remote.getGlobal('furbies').flashDlc()
+}
+
+function loadDlc() {
+  remote.getGlobal('furbies').loadDlc()
+}
+
+function toggleDlc() {
+  remote.getGlobal('furbies').toggleDlc()
+}
+
+function test() {
+  remote.getGlobal('furbies').test(
+    parseInt(document.getElementById("action1").value),
+    parseInt(document.getElementById("action2").value),
+    parseInt(document.getElementById("action3").value),
+    parseInt(document.getElementById("action4").value),
+  )
+}
+
 function onPairClick(evt){
   uuid = this.parentNode.id
   ipcRenderer.send("pair", uuid)

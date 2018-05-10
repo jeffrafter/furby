@@ -8,6 +8,7 @@ const Furbies = require('./furbies')
 
 global.furbies = new Furbies()
 
+console.log(process.env.DLC_FILE)
 // https://github.com/maxogden/menubar#options
 const opts = {
   index: 'file://' + __dirname +  '/index.html',
