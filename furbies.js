@@ -109,7 +109,7 @@ class Furbies {
   deleteDlc() {
     for (let uuid in global.furbies.connections) {
       if (this.selected == null || this.selected == uuid) {
-        fluffaction.execute(global.furbies.connections[uuid], "dlc_delete", {slot: 13}, (error) => {
+        fluffaction.execute(global.furbies.connections[uuid], "dlc_delete", {slot: 1}, (error) => {
           if (error) {
             console.log(`[Error] ${error}`)
           }
@@ -136,7 +136,7 @@ class Furbies {
   loadDlc() {
     for (let uuid in global.furbies.connections) {
       if (this.selected == null || this.selected == uuid) {
-        fluffaction.execute(global.furbies.connections[uuid], "dlc_load", {slot: 13}, (error) => {
+        fluffaction.execute(global.furbies.connections[uuid], "dlc_load", {slot: 1}, (error) => {
           if (error) {
             console.log(`[Error] ${error}`)
             return
