@@ -26,6 +26,8 @@ npm install
 npm start
 ```
 
+NOTE: Node 8 seems to work best for the bluetooth drivers (`brew install node@8` on macOS).
+
 ### That annoying warning while developing
 
 ```bash
