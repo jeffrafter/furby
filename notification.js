@@ -71,7 +71,7 @@ module.exports = (notification) => {
   }
 
   if (notification.type === 'linter') {
-    linter.update(path, notification.added.length, notification.removed.length)
+    linter.update(path, notification.count)
   }
 }
 

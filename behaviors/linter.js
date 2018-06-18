@@ -6,12 +6,13 @@ class Linter {
     this.problems = {}
   }
 
-  update(path, added, removed) {
+  update(path, count) {
     this.problems[path] = this.problems[path] || 0
     let prev = this.problems[path]
-    this.problems[path] += added
-    this.problems[path] -= removed
+    this.problems[path] = count
     if (this.problems[path] < 0) this.problems[path] = 0
+
+    console.log("Problems: " + this.problems[path])
 
     if (prev === 0 && this.problems[path] > 0) {
       // You added the first problem
