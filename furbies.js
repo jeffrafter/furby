@@ -95,9 +95,9 @@ class Furbies {
   }
 
   debug() {
-    for (let uuid in global.furbies.connections) {
+    for (let uuid in this.connections) {
       if (this.selected == null || this.selected == uuid) {
-        fluffaction.execute(global.furbies.connections[uuid], "debug", {}, (error) => {
+        fluffaction.execute(this.connections[uuid], "debug", {}, (error) => {
           if (error) {
             console.log(`[Error] ${error}`)
           }
@@ -107,9 +107,9 @@ class Furbies {
   }
 
   deleteDlc() {
-    for (let uuid in global.furbies.connections) {
+    for (let uuid in this.connections) {
       if (this.selected == null || this.selected == uuid) {
-        fluffaction.execute(global.furbies.connections[uuid], "dlc_delete", {slot: 1}, (error) => {
+        fluffaction.execute(this.connections[uuid], "dlc_delete", {slot: 1}, (error) => {
           if (error) {
             console.log(`[Error] ${error}`)
           }
@@ -119,9 +119,9 @@ class Furbies {
   }
 
   flashDlc() {
-    for (let uuid in global.furbies.connections) {
+    for (let uuid in this.connections) {
       if (this.selected == null || this.selected == uuid) {
-        fluffaction.execute(global.furbies.connections[uuid], "flashdlc", {
+        fluffaction.execute(this.connections[uuid], "flashdlc", {
           dlcfile: process.env.DLC_FILE,
           filename: "NEWDLC.DLC"
         }, (error) => {
@@ -134,9 +134,9 @@ class Furbies {
   }
 
   loadDlc() {
-    for (let uuid in global.furbies.connections) {
+    for (let uuid in this.connections) {
       if (this.selected == null || this.selected == uuid) {
-        fluffaction.execute(global.furbies.connections[uuid], "dlc_load", {slot: 1}, (error) => {
+        fluffaction.execute(this.connections[uuid], "dlc_load", {slot: 1}, (error) => {
           if (error) {
             console.log(`[Error] ${error}`)
             return
@@ -149,9 +149,9 @@ class Furbies {
   toggleDlc() {
     this.dlcActive = !this.dlcActive
     let command = this.dlcActive ? "dlc_activate" : "dlc_deactivate"
-    for (let uuid in global.furbies.connections) {
+    for (let uuid in this.connections) {
       if (this.selected == null || this.selected == uuid) {
-        fluffaction.execute(global.furbies.connections[uuid], command, {}, (error) => {
+        fluffaction.execute(this.connections[uuid], command, {}, (error) => {
           if (error) {
             console.log(`[Error] ${error}`)
             return
@@ -209,7 +209,7 @@ class Furbies {
     }
     this.command('action', params)
 
-    if (Object.keys(global.furbies.connections).length === 0) {
+    if (Object.keys(this.connections).length === 0) {
       exec(`say "${action.name}"`, (err, stdout, stderr) => {
         console.log(stdout)
         console.log(stderr)
@@ -219,12 +219,12 @@ class Furbies {
 
   command(name, params){
     this.lastCommandAt = new Date()
-    console.log(`Sending ${name} to ${Object.keys(global.furbies.connections).length} furbies`)
+    console.log(`Sending ${name} to ${Object.keys(this.connections).length} furbies`)
     if (this.paused) return
 
-    for (let uuid in global.furbies.connections) {
+    for (let uuid in this.connections) {
       if (this.selected == null || this.selected == uuid) {
-        fluffaction.execute(global.furbies.connections[uuid], name, params, (error) => {
+        fluffaction.execute(this.connections[uuid], name, params, (error) => {
           if (error) {
             console.log(`[Error] ${error}`)
           }
@@ -234,4 +234,6 @@ class Furbies {
   }
 }
 
-module.exports = Furbies
+const furbies = new Furbies()
+
+module.exports = furbies

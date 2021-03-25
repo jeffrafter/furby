@@ -1,5 +1,6 @@
 const sample = require('../util/sample')
 const actions = require('../actions')
+const furbies = require('../furbies')
 
 class Linter {
   constructor() {
@@ -24,11 +25,11 @@ class Linter {
   }
 
   fixed() {
-    global.furbies.sampleEmotion("praise")
+    furbies.sampleEmotion("praise")
   }
 
   problem() {
-    global.furbies.sampleEmotion("disappointment")
+    furbies.sampleEmotion("disappointment")
   }
 }
 

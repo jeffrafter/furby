@@ -1,4 +1,5 @@
 const actions = require('../actions')
+const furbies = require('../furbies')
 
 class Active {
   constructor() {
@@ -15,7 +16,7 @@ class Active {
   }
 
   update(path) {
-    global.furbies.sampleAction(this.choices)
+    furbies.sampleAction(this.choices)
   }
 }
 module.exports = new Active()

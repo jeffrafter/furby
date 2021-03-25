@@ -2,6 +2,7 @@ const sample = require('./util/sample')
 const linter = require('./behaviors/linter')
 const cursor = require('./behaviors/cursor')
 const active = require('./behaviors/active')
+const furbies = require('./furbies')
 
 const startingBoredThreshold = 2*60*1000 // 2 minutes
 
@@ -17,10 +18,10 @@ module.exports = (notification) => {
     if (now - lastNotification > boredThreshold) {
       boredThreshold = boredThreshold*2
       console.log(`Next bored action in ${boredThreshold/1000}s`)
-      global.furbies.sampleEmotion('sleepy')
+      furbies.sampleEmotion('sleepy')
     }
     if (projectPath) {
-      global.furbies.ciStatus(projectPath)
+      furbies.ciStatus(projectPath)
     }
   } else {
     console.log('*************************************')
@@ -41,18 +42,18 @@ module.exports = (notification) => {
   if (notification.type === 'change') {
     path = notification.path
     if (notification.lineText.match(/^\s*(var|let|const)\s+$/)) {
-      global.furbies.sampleAction([
+      furbies.sampleAction([
         "oooh, pick a good one!",
         "let's name baby",
         "ooh, name for kah? (sing) Oooh"
       ])
     }
     if (notification.lineText.match(/(^\s*function|\(\))$/)) {
-      global.furbies.sampleEmotion(['collab', 'smalltalk'])
+      furbies.sampleEmotion(['collab', 'smalltalk'])
     }
 
     if (notification.change.match(/^\s*s+\s*/)) {
-      global.furbies.sampleAction([
+      furbies.sampleAction([
         "mmm… s s s s"
       ])
     }
@@ -63,11 +64,11 @@ module.exports = (notification) => {
   }
 
   if (notification.type === 'open') {
-    global.furbies.sampleEmotion('beginning')
+    furbies.sampleEmotion('beginning')
   }
 
   if (notification.type === 'destroy') {
-    global.furbies.cycleEmotion('goodbye')
+    furbies.cycleEmotion('goodbye')
   }
 
   if (notification.type === 'linter') {

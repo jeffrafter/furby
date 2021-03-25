@@ -1,4 +1,5 @@
 const sample = require('../util/sample')
+const furbies = require('../furbies')
 
 class Cursor {
   constructor() {
@@ -42,7 +43,7 @@ class Cursor {
   maybePlayAction(action) {
     // Only act 50% of the time
     if (Math.random() < 0.50) {
-      global.furbies.playAction(action)
+      furbies.playAction(action)
     }
   }
 }
