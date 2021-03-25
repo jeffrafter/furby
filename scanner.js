@@ -1,10 +1,10 @@
-const noble = require('noble')
+const noble = require('@abandonware/noble')
 const fluffcon = require('./fluffcon')
 
 module.exports = (callback) => {
   noble.on('stateChange', function(state) {
     if (state === 'poweredOn') {
-      noble.startScanning()
+      noble.startScanning(undefined, false, undefined)
     } else {
       noble.stopScanning()
     }
