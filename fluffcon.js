@@ -1,4 +1,4 @@
-const noble = require("noble");
+const noble = require("@abandonware/noble");
 
 /*
  * Bluetooth LE GATT Services and Characteristics
@@ -239,7 +239,8 @@ module.exports.connect = function(furby, callback) {
       let rssiListen = characteristics[FURBY.CHARACTERISTIC.RSSI_LISTEN];
       let fileWrite = characteristics[FURBY.CHARACTERISTIC.FILEWRITE];
       console.log("[Furby] Read all fluff characteristics");
-      callback(new Fluff(gpWrite, gpListen, nWrite, nListen, rssiListen, fileWrite));
+      const fluff = new Fluff(gpWrite, gpListen, nWrite, nListen, rssiListen, fileWrite)
+      callback(fluff);
     });
 
     console.log("[Furby] Connected to Furby");
