@@ -7,16 +7,12 @@
     "start": "electron index.js"
   },
   "dependencies": {
-    "menubar": "^5.2.3",
-    "noble": "https://github.com/jeffrafter/noble",
-    "winston": "^2.3.0",
-    "xpc-connection": "^0.1.4"
+    "@abandonware/noble": "git+https://github.com/abandonware/noble.git",
+    "electron": "^12.0.1",
+    "menubar": "^9.0.3",
+    "winston": "^3.3.3"
   },
   "author": "Jeija + Jeff + Nathaniel + Tim",
   "license": "MIT",
-  "devDependencies": {
-    "electron": "^2.0.0",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.11.0"
-  }
+  "devDependencies": {}
 }
