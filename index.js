@@ -1,20 +1,25 @@
 const path = require('path')
-const url = require('url')
-const { app } = require('electron')
 const { ipcMain } = require('electron')
 const { menubar } = require('menubar')
 const scanner = require('./scanner')
-const createServer = require('./server')
+const createServer = require('./ipc')
 const furbies = require('./furbies')
 
-
-console.log(`DLC file: ${process.env.DLC_FILE}`)
-
+// I don't think I need this when using menubar
+//
+// const { app } = require('electron')
+//
 // app.on('window-all-closed', () => {
 //   if (process.platform !== 'darwin') {
 //     app.quit()
 //   }
 // })
+
+if (process.env.DLC_FILE) {
+  console.log(`DLC file: ${process.env.DLC_FILE}`)
+} else {
+  console.log(`No DLC file loaded`)
+}
 
 var mb = menubar({
   index: 'file://' + __dirname +  '/index.html',
@@ -22,10 +27,10 @@ var mb = menubar({
   preloadWindow: true,
   browserWindow: {
     webPreferences: {
-      nodeIntegration: false, // is default value after Electron v5
-      contextIsolation: true, // protect against prototype pollution
-      enableRemoteModule: false, // turn off remote
-      preload: path.join(__dirname, "preload.js") // use a preload script
+      nodeIntegration: false,
+      contextIsolation: true,
+      enableRemoteModule: false,
+      preload: path.join(__dirname, "preload.js")
     }
   },
 })
@@ -86,20 +91,30 @@ ipcMain.handle('unpair', (event, uuid) => {
   furbies.unpair(uuid)
 })
 
-// deleteDlc
-// flashDlc
-// loadDlc
-// toggleDlc
+ipcMain.handle('deleteDlc', (event) => {
+  furbies.deleteDlc()
+})
+
+ipcMain.handle('flashDlc', (event) => {
+  furbies.flashDlc()
+})
+
+ipcMain.handle('loadDlc', (event) => {
+  furbies.deleteDlc()
+})
+
+ipcMain.handle('toggleDlc', (event) => {
+  furbies.toggleDlc()
+})
 
 mb.on('ready', function ready () {
   console.log('Waiting for furbies to connect')
-  // temp, does nothing useful
-  mb.window.webContents.send('furby-connected', "1");
 
   scanner((peripheral, fluff) => {
     furbies.add(peripheral.uuid, fluff)
     mb.window.webContents.send('furby-connected', peripheral.uuid);
   })
 
+  // Create an ipc server to receive messages from other processes
   createServer()
 })

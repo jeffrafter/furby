@@ -1,6 +1,5 @@
 const http = require('http')
 const timers = require('timers')
-const fluffaction = require('./fluffaction')
 const notification = require('./notification')
 
 const PORT = 3872

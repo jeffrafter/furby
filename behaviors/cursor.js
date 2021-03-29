@@ -14,9 +14,9 @@ class Cursor {
     state.up = state.up || 0
     state.down = state.down || 0
 
-    if (newPos.row === oldPos.row - 1) {
+    if (newPos.line === oldPos.line - 1) {
       state.up += 1
-    } else if (newPos.row === oldPos.row + 1) {
+    } else if (newPos.line === oldPos.line + 1) {
       state.down += 1
     }
 

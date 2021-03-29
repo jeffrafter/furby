@@ -39,16 +39,23 @@ module.exports = (notification) => {
     active.update(notification.path)
   }
 
+  // Expecting:
+  /*
+    {
+      type: "change",
+      line: "text of the whole line"
+      change: "changed text range"
+    }
+  */
   if (notification.type === 'change') {
-    path = notification.path
-    if (notification.lineText.match(/^\s*(var|let|const)\s+$/)) {
+    if (notification.line.match(/^\s*(var|let|const)\s+$/)) {
       furbies.sampleAction([
         "oooh, pick a good one!",
         "let's name baby",
         "ooh, name for kah? (sing) Oooh"
       ])
     }
-    if (notification.lineText.match(/(^\s*function|\(\))$/)) {
+    if (notification.line.match(/(^\s*function|\(\))$/)) {
       furbies.sampleEmotion(['collab', 'smalltalk'])
     }
 
@@ -59,8 +66,22 @@ module.exports = (notification) => {
     }
   }
 
-  if (notification.type === 'cursor') {
-    cursor.update(notification.path, notification.old, notification.new)
+  // Expecting:
+  /*
+    {
+      type: "cursor",
+      previous: {
+        line: 0,
+        character: 0
+      }
+      current: {
+        line: 0,
+        character: 0
+      }
+    }
+  */
+    if (notification.type === 'cursor') {
+    cursor.update(notification.path, notification.previous, notification.current)
   }
 
   if (notification.type === 'open') {
